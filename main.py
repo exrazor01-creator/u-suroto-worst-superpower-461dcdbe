@@ -25,7 +25,7 @@ and the umbrella is the concrete detail that fixes the
 power in the world. One sentence, nothing to explain.
 
 LIMIT is 140 because the bounty gate allows one line of 1
-to 140 characters. The sealed line is 68 characters, so it
+to 140 characters. The sealed line is 59 characters, so it
 sits well inside the cap; the validator below only guards
 against an edit that would push it past the limit.
 """

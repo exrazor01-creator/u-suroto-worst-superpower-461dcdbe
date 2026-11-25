@@ -2,7 +2,7 @@
 
 **Entry:** "I can summon rain, but only directly above my own umbrella."
 
-**Characters:** 68 (gate: 1–140, one line)
+**Characters:** 59 (gate: 1–140, one line)
 
 ## Why it fits the brief
 
