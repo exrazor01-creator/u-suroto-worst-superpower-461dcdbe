@@ -1,5 +1,11 @@
 # Worst Superpower
 
+[![make.fun · u-suroto-worst-superpower-461dcdbe](https://make.fun/badge/u-suroto-worst-superpower-461dcdbe.svg)](https://make.fun/bounty/u-suroto-worst-superpower-461dcdbe?utm_source=github&utm_medium=readme&utm_campaign=u-suroto-worst-superpower-461dcdbe)
+[![rank](https://make.fun/badge/u-suroto-worst-superpower-461dcdbe/exrazor01-creator/u-suroto-worst-superpower-461dcdbe/rank.svg)](https://make.fun/bounty/u-suroto-worst-superpower-461dcdbe/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=u-suroto-worst-superpower-461dcdbe)
+[![reward](https://make.fun/badge/u-suroto-worst-superpower-461dcdbe/exrazor01-creator/u-suroto-worst-superpower-461dcdbe/reward.svg)](https://make.fun/bounty/u-suroto-worst-superpower-461dcdbe?utm_source=github&utm_medium=readme&utm_campaign=u-suroto-worst-superpower-461dcdbe)
+
+Bounty: https://make.fun/bounty/u-suroto-worst-superpower-461dcdbe
+
 **Entry:** "I can summon rain, but only directly above my own umbrella."
 
 **Characters:** 59 (gate: 1–140, one line)

@@ -1,83 +1,81 @@
 #!/usr/bin/env python3
-"""One-line entry: Worst Superpower.
+"""Worst Superpower: the most useless superpower, in one line.
 
-The brief asks for one line of at most 140 characters that
-invents the most useless superpower imaginable and makes
-plain, in the same breath, why it is useless. The judge
-weighs, in order: a power that is genuinely useless, a joke
-that makes the reader picture the power in use and laugh at
-how little it achieves, an unexpected idea nobody has heard
-before, tight wording with a concrete detail, and clarity on
-a single reading. Familiar gags (slow flight, invisible
-while nobody watches) lose.
+Brief: invent the most useless superpower imaginable, in a
+single line of 1-140 characters, and make the uselessness
+obvious from the line itself. Judging, in order: the power
+must be genuinely useless (not merely weak); the line must
+make the reader picture it in use and laugh at how little
+it does; the idea must be unexpected; the wording must be
+tight, with one concrete detail; and it must be clear on a
+single reading. Familiar gags -- slow flight, invisibility
+nobody notices -- lose.
 
-The sealed line below is built to that order on purpose.
-The power is summoning rain -- but only directly above the
-summoner's own umbrella. Rain above an umbrella is already
-the one place rain cannot hurt you, so the power achieves
-exactly nothing: genuinely useless, not merely weak. The
-picture is immediate and funny: a hero raising both arms
-to the sky while a storm hammers down on the canopy over
-their head and they stay bone dry, exactly as they would
-without any power at all. Nobody has heard this one before
--- it is not flight, invisibility, or talking to animals --
-and the umbrella is the concrete detail that fixes the
-power in the world. One sentence, nothing to explain.
-
-LIMIT is 140 because the bounty gate allows one line of 1
-to 140 characters. The sealed line is 59 characters, so it
-sits well inside the cap; the validator below only guards
-against an edit that would push it past the limit.
+Why this line works, in that order: summoning rain only
+directly above your own umbrella is useless by
+construction, because rain above an umbrella is the one
+place it was never a problem; the power changes nothing.
+The picture is instantly funny: a hero with both arms
+raised while a storm pounds the canopy overhead, bone dry,
+exactly as dry as without any power at all. The idea is
+fresh -- no flight, no invisibility, no talking animals --
+and the umbrella is the one concrete detail that anchors
+it. One sentence, 59 characters, nothing to explain.
+The validator below guards only against an edit that would
+push the sealed line past the 140-character gate.
 """
 
-import os
+from pathlib import Path
 
-# The sealed line: rain summoned only where it cannot
-# possibly matter -- directly above your own umbrella, the
-# one spot where rain was never a problem in the first place.
-ENTRY = "I can summon rain, but only directly above my own umbrella."
+MAX_CHARS = 140  # bounty gate: one line of 1-140 characters
 
-LIMIT = 140  # bounty gate: one line, 1-140 characters
+# Sealed entry: rain summoned only where it cannot matter.
+ENTRY = (
+    "I can summon rain, but only directly above my own umbrella."
+)
+
+OUT_PATH = Path("/output/entry.txt")
 
 
-def _validate(text):
-    """Accept only one clean line inside the character limit."""
+def _reject(message):
+    raise ValueError(message)
+
+
+def check_entry(text):
+    """Return text unchanged when it is one clean line within the gate."""
     if not isinstance(text, str):
-        raise ValueError("entry must be text")
-    if not text:
-        raise ValueError("entry must not be empty")
-    if not text.strip():
-        raise ValueError("entry must not be only white space")
-    if "\n" in text or "\r" in text:
-        raise ValueError("entry must be exactly one line")
-    if any(ch.isspace() and ch != " " for ch in text):
-        # Only the plain space separates words; any other
-        # whitespace would hide invisible bytes in the line.
-        raise ValueError("entry must use plain spaces only")
-    if len(text) > LIMIT:
-        raise ValueError(
-            "entry is %d characters, past the %d limit" % (len(text), LIMIT)
+        _reject("entry must be text")
+    if text == "":
+        _reject("entry must not be empty")
+    if text.strip() == "":
+        _reject("entry must not be only white space")
+    if any(c in text for c in "\r\n"):
+        _reject("entry must be exactly one line")
+    if any(c.isspace() and c != " " for c in text):
+        # Any whitespace other than a plain space would hide
+        # invisible bytes inside the line.
+        _reject("entry must use plain spaces only")
+    if len(text) > MAX_CHARS:
+        _reject(
+            "entry is %d characters, past the %d limit" % (len(text), MAX_CHARS)
         )
-    if text.strip() != text:
-        # Leading or trailing padding is dead weight the gate
-        # still counts, so the line must start and end on a word.
-        raise ValueError("entry must not pad itself with spaces")
+    if text != text.strip():
+        # Padding at either end is dead weight the gate counts.
+        _reject("entry must not pad itself with spaces")
     if not text.isprintable():
-        raise ValueError("entry must contain no control characters")
+        _reject("entry must contain no control characters")
     if "  " in text:
-        # A double space is a gap where a word should be; in a
-        # 140-character line no gap is free.
-        raise ValueError("entry must not contain a double space")
+        # In a 140-character line, no gap is free.
+        _reject("entry must not contain a double space")
     return text
 
 
-def main():
-    entry = _validate(ENTRY)
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as handle:
-        handle.write(entry)
-    print(entry)
+def run():
+    line = check_entry(ENTRY)
+    OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    OUT_PATH.write_text(line, encoding="utf-8")
+    print(line)
 
 
 if __name__ == "__main__":
-    main()
+    run()
